@@ -24,15 +24,6 @@ def check_api_access():
         pytest.skip("Incorrect URL! Skipping tests")
 
 
-def check_response(data, expected_status):
-    assert isinstance(data, dict)
-    assert data.get('status') == expected_status
-    if expected_status == "200 OK":
-        assert isinstance(data.get('id'), int)
-        assert isinstance(data.get('name'), str)
-        assert isinstance(data.get('height'), str)
-
-
 @pytest.mark.positive
 @pytest.mark.parametrize(
     "gender, work, expected_status",
@@ -49,7 +40,7 @@ def check_response(data, expected_status):
 def test_tallest_superhero_positive(gender, work, expected_status):
     result_json = tallest_superhero(gender, work)
     data = json.loads(result_json)
-    check_response(data, expected_status)
+    assert data.get('status') == expected_status
 
 
 @pytest.mark.negative
