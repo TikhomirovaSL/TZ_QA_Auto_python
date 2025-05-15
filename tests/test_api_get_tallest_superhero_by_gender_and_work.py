@@ -15,13 +15,6 @@ def check_api_access():
         pytest.skip("Incorrect URL! HTTP/HTTPS scheme missing")
     except requests.exceptions.HTTPError as e:
         pytest.skip(f"HTTP error {e}. Skipping tests")
-    
-    try:
-        data = json.loads(tallest_superhero("Male", True))
-        if data.get("status") == "400 Bad requests" and data.get("message") == "Incorrect URL!":
-            pytest.skip("Incorrect URL! Skipping tests")
-    except Exception:
-        pytest.skip("Incorrect URL! Skipping tests")
 
 
 @pytest.mark.positive
